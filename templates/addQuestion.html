@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Add a Question</title>
+    <style>
+      .formContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+      }
+      .formContainer form {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin: 0 auto;
+      }
+      .formContainer label {
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+      .formContainer input,
+      .formContainer textarea {
+        font-size: 1rem;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 2px solid #187da0;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+      }
+      .formContainer input:focus,
+      .formContainer textarea:focus {
+        border-color: #14929b;
+        outline: none;
+      }
+      .formContainer input[type="submit"] {
+        background-color: #187da0;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .formContainer input[type="submit"]:hover {
+        background-color: #14929b;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <section class="header-section">
+        <figure>
+            <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+            <figcaption>TCC</figcaption>
+            <p>Think Cloud Computing</p>
+        </figure>
+        <nav>
+            <ul>
+                  <li><a href="{{ url_for('about') }}">About us</a></li>
+                <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                {% if session['user'] %}
+                    <section class="dropdown">
+                        <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                        <section class="dropcontent">
+                            <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                            {% if session['user']['role'] == 'admin' %}
+                            <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                        {% endif %}
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </section>
+                    </section>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        </section>
+       <section class="bluerow"></section>
+    </header>
+      <div class="formContainer">
+        <form method="POST" action="{{ url_for('addQuestion') }}">
+          <label for="desc">Question Description:</label><br>
+          <textarea required id="desc" name="desc" rows="4" cols="50"></textarea><br>
+          <label for="opt1">Option 1:</label><br>
+          <input required size="50" type="text" id="opt1" name="opt1" placeholder="Enter option 1"><br><br>
+          <label for="opt2">Option 2:</label><br>
+          <input required size="50" type="text" id="opt2" name="opt2" placeholder="Enter option 2"><br><br>
+          <label for="opt3">Option 3:</label><br>
+          <input required size="50" type="text" id="opt3" name="opt3" placeholder="Enter option 3"><br><br>
+          <label for="opt4">Option 4:</label><br>
+          <input required size="50" type="text" id="opt4" name="opt4" placeholder="Enter option 4"><br><br>
+          <label for="corr">Correct Answer:</label><br>
+          <input required size="50" type="text" id="corr" name="corr" placeholder="Enter correct answer"><br><br>        
+          <label for="diff">Difficulty:</label><br>
+          <input required size="50" type="text" id="diff" name="diff" placeholder="Enter difficulty"><br><br>        
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+    <style>
+        /* Form Styles */
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 3rem;
+        }
+        
+        form label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        form input[type="text"],
+        form input[type="password"] {
+            width: 20rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        form button {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <section class="header-section">
+          <figure>
+              <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+              <figcaption>TCC</figcaption>
+              <p>Think Cloud Computing</p>
+          </figure>
+          <nav>
+              <ul>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+                  <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+                  <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                  {% if session['user'] %}
+                      <section class="dropdown">
+                          <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                          <section class="dropcontent">
+                              <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                              {% if session['user']['role'] == 'admin' %}
+                              <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                          {% endif %}
+                              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                          </section>
+                      </section>
+                  {% else %}
+                      <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+                  {% endif %}
+              </ul>
+          </nav>
+          </section>
+         <section class="bluerow"></section>
+      </header>
+    <main>
+        <form method="POST" action="{{ url_for('profileChanges') }}">
+        {% if session['user'] and session['user']['nickname'] == nickname  %}
+        <h1 class="title" style="margin-top: 50px;">My Profile</h1>
+        {% else %}
+        <h1 class="title" style="margin-top: 50px;">{{nickname}} Profile</h1>
+        {% endif %}
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="{{ username }}"><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password"><br><br>
+          <label for="nickname">Nickname:</label>
+          <input type="text" id="nickname" name="nickname" value="{{ nickname }}"><br><br>
+          <label for="highscore">My Highscore:</label>
+          <input type="text" id="highscore" name="highscore" value="{{ highscore }}" disabled><br><br>
+          {% if session['user'] and session['user']['nickname'] == nickname  %}
+            <button class="button" type="submit">Save Changes</button>
+          {% endif %}
+        </form>
+        {% if game_info is not none %}
+            <section class="matchistory">
+                <h2 class="title" style="margin-top: 50px;">Match History</h2>
+                {%for key, value in game_info.items()%}
+                    <article class="game">
+                        <section>
+                            <h3>Game Score: {{value["game-info"]["score"]}}</h3>
+                            <h3>Game Correct Anwser Session: {{value["game-info"]["right_anwsers"]}}</h3>
+                            <h3>Date: {{value["game-info"]["time"]}}</h3>
+                        </section>
+                        <a href="{{ url_for('game_statsitics', id=key)}}">
+                            <button class="button-game">
+                                View Statistics
+                            </button>
+                        </a>
+                    </article>
+                {%endfor%}
+            </section>
+        {%endif%}
+    </main>
+</body>
+</html>

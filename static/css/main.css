@@ -1,0 +1,398 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&family=Ubuntu:ital,wght@0,400;1,700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --rectangle1: #33A0c1;
+    --button: #187DA0;
+    --box-game: #D9D9D9;
+}
+html {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+}
+body {
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+}
+header {
+  position: sticky;
+  width: 100%;
+  z-index: 2;
+}
+.header-section {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+}
+
+.bluerow {
+    height: 3rem;
+    width: 100%;
+    background-color: var(--rectangle1);
+    box-shadow: 0px 3px rgba(0,0,0, 0.2);
+}
+header figure {
+    display: flex;
+    max-height: 800px;
+}
+
+header figure img {
+    height: 5rem;
+}
+
+header figcaption {
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+figure p {
+    display: flex;
+    align-items: flex-end;
+    font-size: 1.3rem;
+}
+
+header nav {
+    margin-left: auto;
+}
+header nav ul {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+header nav ul li {
+    list-style-type: none;
+    font-size: 1.2rem;
+    padding: 0.25rem .5rem;
+}
+
+main {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; */
+    flex-shrink: 1;
+}
+.logomain
+{
+    position: relative;
+    height: 80vh;
+    margin-bottom: 20rem;
+}
+.waves {
+  bottom: -20rem;
+  width: 100%;
+  position: absolute;
+  z-index: -1000;
+}
+.waves img {
+  width: 100%;
+  aspect-ratio: 900/600;
+}
+main .logomain figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+main .logomain {
+    display: flex;
+    height: 90vh;
+    width: 100%;
+    justify-content: space-evenly;
+}
+main .logomain figure {
+  width: 800px;
+  height: auto;
+  max-height: 800px;
+}
+main .logomain article {
+    display: flex;
+    max-width: 800px;
+    max-height: 800px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logomain h4 {
+    font-size: 2rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.logomain p {
+    font-size: 1.3rem;
+    margin: 0.125rem 0.25rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.button {
+    margin-top: 5rem;
+    background: var(--button);
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 20rem;
+    color: #fff;
+    filter: drop-shadow(0px 2px 6px rgba(0,0,0,.3));
+}
+.background {
+    display: flex;
+    align-items: flex-start;
+    position: absolute;
+    width: 100%;
+    z-index: -1000;
+    aspect-ratio: 900/600;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.layer {
+    background-image: url("/img/layered-waves-haikei.svg");
+}
+
+.ourgames {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    background-color: #c1e2ec;
+}
+.title {
+    font-size: 3rem;
+    display: inline;
+    position: relative;
+    margin: 2.5rem 0.225rem;
+    z-index: 1;
+}
+
+.title:after {
+    content:"";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1.2rem;
+    background-color: var(--rectangle1);
+
+}
+
+.title:after:hover {
+    content:"";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1.2rem;
+    background-color: var(--rectangle1);
+}
+
+.ourgames nav {
+    margin-top: 5rem;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.ourgames nav article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    margin: 0.5rem, 0.25rem;
+}
+
+.ourgames nav article p {
+    font-size: 1.25rem;
+    margin: 0.25rem 0.5rem;
+}
+
+/* .ourgames nav article {
+    padding: 0.25rem 0.5rem;
+    margin: 0.5rem;
+} */
+.boxgame {
+    /* Rectangle 3 */
+width: 15rem;
+height: 15rem;
+
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(74,114,207,1) 60%, rgba(24,125,160,1)  100%);
+border-radius: 10px;
+}
+
+.wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .wave svg {
+    position: relative;
+    display: block;
+    width: calc(103% + 1.3px);
+    height: 262px;
+  }
+
+  .wave .shape-fill {
+    fill: #4a72cf;
+  }
+  .memeory-game {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto auto auto;
+  }
+  .secondbox {
+    background-color: var(--rectangle1);
+    width: 4rem;
+    height: 4rem;
+  }
+  .secondbox.matching {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #33C17D;
+    width: 100%;
+    height: 100%;
+  }
+  .cloud {
+    background-image: url('/img/compute.png');
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: grid;
+
+  }
+  .secondbox.matching img {
+    height: 4rem;
+    width: 5rem;
+  }
+  .boxtrivia {
+    background-color: var(--button);
+    width: 5rem;
+    height: 5rem;
+    display: grid;
+    place-items: center;
+  }
+  .card {
+    width: 20rem;
+    height: 500px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 8px solid var(--rectangle1);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+.card:hover figcaption
+{
+    right: 0;
+}
+  .card figcaption {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: -100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    background: #1f3d4738; 
+    backdrop-filter: blur(5px);
+    transition: right 1.25s;
+  }
+
+  .card figcaption h3 {
+    font-size: 2rem;
+    margin: 0.5rem 0.25rem;
+  }
+
+  .card figcaption p {
+    display: inline;
+    font-size: 1.5rem;
+  }
+
+  .button-game {
+    margin-top: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background-color: var(--button);
+    height: 3rem;
+    line-height: 0px;
+    width: auto;
+    color: #fff;
+  }
+  .card:hover {
+    right: 0;
+  }
+
+  footer{
+    position: relative;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: url("/img/down.svg");
+    background-repeat: no-repeat;
+    background-position: end;
+    background-size: 90%;
+  }
+  .blocb {
+    height: 100%;
+    width: 100%;
+    background-image: url("/img/blob-scene-haikei.svg");
+    background-repeat: no-repeat;
+    z-index: -1;
+    position: absolute;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background-image: url("/img/blob-scene-haikei.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  footer svg {
+    position: relative;
+    display: block;
+    width: calc(103% + 1.3px);
+    height: 262px;
+  }

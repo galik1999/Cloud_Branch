@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="{{url_for('static', filename='statistics.js')}}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <figure>
+            <img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo">
+            <figcaption>TCC</figcaption>
+            <p>Think Cloud Computing</p>
+        </figure>
+        <nav>
+            <ul>
+                <li>About us</li>
+                <li>Our Games</li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                {% if nickname %}
+                   <li>My Proflie</li>
+                   <li><a>Logout</a></li>
+                   <li>{{nickname}}</li>
+                {% else %}
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <section class="bluerow"></section>
+    <main>
+        <canvas id="gameStatistics" height="800px" width="600px"></canvas>
+    </main>
+</body>
+</html>

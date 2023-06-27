@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+      <section class="header-section">
+        <figure>
+            <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+            <figcaption>TCC</figcaption>
+            <p>Think Cloud Computing</p>
+        </figure>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+                <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                {% if session['user'] %}
+                    <section class="dropdown">
+                        <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                        <section class="dropcontent">
+                            <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                            {% if session['user']['role'] == 'admin' %}
+                            <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                        {% endif %}
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </section>
+                    </section>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        </section>
+       <section class="bluerow"></section>
+    </header>
+    <!-- <header>
+    </header> -->
+    <section class="leaderboard">
+      <section class="leaderboard-header">
+        <img src="{{ url_for('static', filename='img/goblet.png') }}" height="70px" width="70px" />
+        <h1>Leader Board</h1>
+        <img src="{{ url_for('static', filename='img/goblet.png') }}" height="70px" width="70px" />
+      </section>
+        <table class="leaderboard-table">
+          <tr>
+            <th>Place</th>
+            <th>Nick Name</th>
+            <th>Points</th>
+          </tr>
+          {%for i in range(db_list_users|length)%}
+            <tr>
+            <td>{{i+1}}</td>
+            <td>{{db_list_users[i]["nickname"]}}</td>
+            <td>{{db_list_users[i]["highscore"]}}</td>
+            </tr>
+          {%endfor%}
+        </table>
+    </section>
+  </body>
+</html>

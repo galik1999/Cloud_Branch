@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+        import { collection, doc, addDoc, setDoc, getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js'
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyB-m7oFxeB2aDviqqnL27d9j0lyaSqCMlE",
+            authDomain: "leader-board-draft.firebaseapp.com",
+            databaseURL: "https://cloudclass-44ac5-default-rtdb.europe-west1.firebasedatabase.app/",
+            projectId: "leader-board-draft",
+            storageBucket: "leader-board-draft.appspot.com",
+            messagingSenderId: "462193691797",
+            appId: "1:462193691797:web:d0138216a06dead7f1df9c",
+            measurementId: "G-X004BH4VQM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const questionListUI = document.getElementById("questionList");
+        console.log(questionListUI)
+        const dbRef = ref(getDatabase());
+        let qArr = []
+        const buttonsPerRow = 5;
+        let buttonElements = [];
+
+        get(child(dbRef, `questions/`)).then((snapshot) => {
+          if (snapshot.exists()) 
+          {
+            qArr = snapshot.val();
+            buttonElements = Array(buttonsPerRow * Math.ceil(qArr.length / buttonsPerRow));
+  
+              let counter = 0;
+              let orderElements = Object.keys(qArr);
+              qArr.forEach((question, index) => {
+                  let $button;
+                  if (buttonElements[counter]) {
+                      $button = buttonElements[counter];
+                  } else {
+                      $button = document.createElement("button");
+                      buttonElements[counter] = $button;
+                      questionListUI.append($button);
+                  }
+                  $button.className = "button";
+                  $button.style.width="300px";
+                  $button.style.height="auto";
+                  let stringHTML = "{{url_for('manager')}}";
+                  $button.innerHTML ='<a style="color:white;" href = '+ stringHTML + '/' + orderElements[counter] +'>'+ (counter+1) + ". " + question["question"]+'</a>';
+                  setTimeout(() => $button.classList.add('visible'), 100);
+  
+                  if (index >= qArr.length) {
+                      $button.style.visibility = "hidden";
+                  } else {
+                      $button.style.visibility = "visible";
+                  }
+                  counter++;
+              });
+          } else {
+              console.log("No data available");
+          }
+      }).catch((error) => {
+          console.error(error);
+      });
+  
+      const $search = document.querySelector('#search')
+      const $input = document.querySelector('#txt')
+      
+      $input.addEventListener('input', () => {
+          console.log($input.value)
+          
+
+          // FIXED the code appreantly if u delete values from an array it will appear as empty slot.
+          // we need to target only defined elements.
+          const filtered = qArr.filter((question) =>{
+              return !question['question'].toLowerCase().includes($input.value.toLowerCase())
+          })
+          let counter2 = 0;
+          qArr.forEach((question) => {
+              let $button = buttonElements[counter2];
+              $button.style.display = (filtered.includes(question)) ? "none" : "block";
+              counter2++;
+          })
+      });
+  </script>
+  <style>
+    #questionList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    }
+    .questionfilter{
+      font-size:24px;
+      font-weight:bold;
+      margin: 25px;
+    }
+    .filterinput{
+      font-size: 18px;
+      font-weight: 600;
+      margin: 25px;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: 2px solid #187da0;
+      transition: border-color 0.3s ease;
+      width: 60%;
+    }
+    .filterinput:focus {
+      border-color: #14929b;
+      outline: none;
+    }
+    .inputContainer{
+      display:flex;
+      justify-content:center;
+    }
+    .button {
+        margin-top: 1rem;
+        background: #187da0;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 700;
+        height: auto;
+        width: 300px;
+        color: #fff;
+        filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.3));
+        transition: 0.3s ease-in-out;
+        text-align: center;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        opacity: 0;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .offscreen {
+      display: none;
+    }
+    .button.visible {
+      opacity: 1;
+      transform: translateY(0);
+  }
+    .button:hover {
+      background-color: #14929b;
+      transform: scale(1.1);
+    }
+    .button a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .button a:focus {
+        outline: none;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+  }
+  
+  body {
+      animation: fadeIn 1s ease-in-out;
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <section class="header-section">
+      <figure>
+          <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+          <figcaption>TCC</figcaption>
+          <p>Think Cloud Computing</p>
+      </figure>
+      <nav>
+          <ul>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+              <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+              <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+              {% if session['user'] %}
+                  <section class="dropdown">
+                      <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                      <section class="dropcontent">
+                          <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                          {% if session['user']['role'] == 'admin' %}
+                          <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                      {% endif %}
+                          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                      </section>
+                  </section>
+              {% else %}
+                  <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+              {% endif %}
+          </ul>
+      </nav>
+      </section>
+     <section class="bluerow"></section>
+  </header>
+  <div class="inputContainer">
+    <label class="questionfilter" for="txt">Filter Questions: </label>
+    <input class="filterinput" title="filter" type="text" size="50px" id="txt">
+  </div>  
+  <section id="sec">
+    <div id="questionList"></div>
+    <div class="formList">
+      
+    </div>
+  </section>
+</body>
+
+</html>

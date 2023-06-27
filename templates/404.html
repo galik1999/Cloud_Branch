@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <section class="header-section">
+          <figure>
+              <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+              <figcaption>TCC</figcaption>
+              <p>Think Cloud Computing</p>
+          </figure>
+          <nav>
+              <ul>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+                  <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+                  <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                  {% if session['user'] %}
+                      <section class="dropdown">
+                          <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                          <section class="dropcontent">
+                              <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                              {% if session['user']['role'] == 'admin' %}
+                              <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                          {% endif %}
+                              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                          </section>
+                      </section>
+                  {% else %}
+                      <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+                  {% endif %}
+              </ul>
+          </nav>
+          </section>
+         <section class="bluerow"></section>
+      </header>
+    <main>
+        <section class="error">
+            <h1>Sorry!</h1>
+            <p>The resource you have requested does not exist...</p>
+            <p>return to <a href="{{url_for('index')}}">Main page</a></p>
+            <img src="{{url_for('static', filename='img/sad_cloud2.jpg')}}" width="200px" height="200px"/>
+            <section class="rain">
+                <img class="raint raindrops" src="{{url_for('static', filename='img/tears.gif')}}" width="150px" height="75px"/>
+            </section>
+        </section>
+    </main>
+</body>
+<script>
+TweenMax.set(".raindrops2", {y:-100});
+TweenMax.to(".raindrops, .raindrops2", 2, {y:"+=200", repeat:-1, ease:Linear.easeNone});
+</script>
+</html>

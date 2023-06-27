@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<header>
+  <section class="header-section">
+    <figure>
+        <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+        <figcaption>TCC</figcaption>
+        <p>Think Cloud Computing</p>
+    </figure>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('about') }}">About us</a></li>
+            <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+            <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+            {% if session['user'] %}
+                <section class="dropdown">
+                    <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                    <section class="dropcontent">
+                        <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                        {% if session['user']['role'] == 'admin' %}
+                        <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                    {% endif %}
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </section>
+                </section>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    </section>
+   <section class="bluerow"></section>
+</header>
+<body>
+  <main>
+    <section class="login">
+        <section class="login-form">
+            <h2>Sign up</h2>
+            <p>fill the following inputs in order to continue to the website</p>
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="formlabels">
+                  <label for="username">Username:</label>
+                  <input 
+                  type="text" 
+                  id="username" 
+                  name="username"                             
+                  placeholder="Enter your username"
+                  value=""
+                  required>
+                </div>
+                <div class="formlabels">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="password"                   placeholder="Enter your password"
+                  value=""
+                  required>
+                </div>
+                <div class="formlabels">
+                  <label for="nickname">Nickname:</label>
+                  <input type="text" id="nickname" name="nickname"                   placeholder="Enter your nickname"
+                  value=""
+                  required>
+                </div>
+                <div class="formlabels">
+                  <label for="id">ID:</label>
+                  <input type="text" id="id" name="id"                   placeholder="Enter your ID"
+                  value=""
+                  required>
+                </div>
+                <button class="loginbutton">Register</button>
+            </form>
+            <hr>
+            <section class="register">
+                <p> Already registered? <span><a class="signup" href="{{url_for('login')}}">Sign in</a> </span></p>
+            </section>
+        </section>
+        <section class="svg"></section>
+    </section>
+  </main>
+</body>
+</html>

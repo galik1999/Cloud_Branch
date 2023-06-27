@@ -1,0 +1,26 @@
+html {
+    font-size: 16px;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+}
+.player1 {
+    order: 1;
+}
+.game-board {
+    order: 2;
+    width: 25rem;
+    height: 15rem;
+
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.player2 {
+    order: 3;
+}
+/* .player1 {
+    margin-right: auto;
+} */

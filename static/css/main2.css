@@ -1,0 +1,191 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&family=Ubuntu:ital,wght@0,400;1,700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --rectangle1: #33A0c1;
+    --button: #187DA0;
+    --box-game: #D9D9D9;
+}
+html {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+}
+body {
+    height: 100%;
+}
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bluerow {
+    height: 3rem;
+    width: 100%;
+    background-color: var(--rectangle1);
+}
+header figure {
+    display: flex;
+    max-height: 800px;
+}
+
+header figure img {
+    height: 5rem;
+}
+
+header figcaption {
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+figure p {
+    display: flex;
+    align-items: flex-end;
+    font-size: 1.3rem;
+}
+
+header nav {
+    margin-left: auto;
+}
+header nav ul {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+header nav ul li {
+    list-style-type: none;
+    font-size: 1.2rem;
+    padding: 0.25rem .5rem;
+}
+
+main {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 2rem;
+}
+
+main .logomain figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+main img {
+    width: 800px;
+    height: auto;
+    max-height: 700;
+}
+main .logomain {
+    display: flex;
+    height: 70vh;
+    width: 100%;
+    justify-content: space-evenly;
+}
+main .logomain article {
+    display: flex;
+    max-width: 800px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logomain h4 {
+    font-size: 2rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.logomain p {
+    font-size: 1.3rem;
+    margin: 0.125rem 0.25rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.button {
+    margin-top: 5rem;
+    background: var(--button);
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 20rem;
+    color: #fff;
+    filter: drop-shadow(0px 2px 6px rgba(0,0,0,.3));
+}
+
+.ourgames {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid black;
+}
+.title {
+    font-size: 3rem;
+    display: inline;
+    position: relative;
+}
+
+.title:after {
+    content:"";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1.2rem;
+    background-color: var(--rectangle1);
+
+}
+
+.title:after:hover {
+    content:"";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1.2rem;
+    background-color: var(--rectangle1);
+}
+
+.ourgames nav {
+    margin-top: 5rem;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.ourgames nav article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 50%;
+    margin: 0.25rem, 0.25rem;
+}
+
+.ourgames nav article p {
+    font-size: 1.25rem;
+    margin: 0.25rem 0.5rem;
+}
+
+/* .ourgames nav article {
+    padding: 0.25rem 0.5rem;
+    margin: 0.5rem;
+} */
+.boxgame {
+    /* Rectangle 3 */
+width: 15rem;
+height: 15rem;
+
+background: var(--box-game);
+border-radius: 10px;
+}

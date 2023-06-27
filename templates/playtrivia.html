@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='question.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>TCC Trivia Game</title>
+</head>
+<div>
+  <header>
+    <section class="header-section">
+      <figure>
+          <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+          <figcaption>TCC</figcaption>
+          <p>Think Cloud Computing</p>
+      </figure>
+      <nav>
+          <ul>
+            <li><a href="{{ url_for('about') }}">About us</a></li>
+              <li><a href="{{ url_for('index') }} ~ {{"#ourgames"}}">Our Games</a></li>
+              <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+              {% if session['user'] %}
+                  <section class="dropdown">
+                      <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                      <section class="dropcontent">
+                          <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                          {% if session['user']['role'] == 'admin' %}
+                          <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                      {% endif %}
+                          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                      </section>
+                  </section>
+              {% else %}
+                  <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+              {% endif %}
+          </ul>
+      </nav>
+      </section>
+     <section class="bluerow"></section>
+  </header>
+    </div>
+
+    
+    <script src="{{ url_for('static', filename='question.js') }}"></script>
+
+    <div id="main">
+      <h1 class="title">Trivia Game</h1>
+      <br/>
+      <br />
+
+       <!-- Progress bar -->
+      <div class="progress-bar-container">
+         <div class="progress-bar">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
+            <div class="step">4</div>
+            <div class="step">5</div>
+            <div class="step">6</div>
+            <div class="step">7</div>
+            <div class="step">8</div>
+            <div class="step">9</div>
+            <div class="step">10</div>
+            <div class="step">Goal</div>
+         </div>
+      </div>
+      
+      <section class="showButtons">
+      </section>
+
+      <section class="gamePad">
+        <div id="board">
+          <div><h2 id="question"></h2></div>
+            <div id="gameChoices">
+              <div class="flex-container">
+              <div class="options"><button id="option1" ></button></div>
+              <div class="options"><button id="option2" ></button></div>
+              <div class="options"><button id="option3" ></button></div>
+              <div class="options"><button id="option4" ></button></div>
+            </div>
+          </div>
+        </div>
+        {% if session['user'] %}
+        <div id="left-elements">
+          <img src="{{ url_for('static', filename='img/userIcon.jpg') }}" height="120px" width="120px" />
+          <h3>Player:{{session['user']['nickname']}}</h3>
+          <div class="score">Total Score:<span id="currentScore">0</span></div>
+          <div class="numOfCorrectAnswers">Numer of correct answers:<span id="num_correct_answers">0</span></div>
+          <a href="{{ url_for('index') }}"><button id="exit">Exit</button></a>
+        </div>
+        {% endif %}
+      </section>
+      <div id="right-elements">
+      <!-- Board of the game-->
+      <!-- <div id="board">
+        <div><h2 id="question"></h2></div>
+          <div id="gameChoices">
+            <div class="flex-container">
+            <div class="options"><button id="option1" ></button></div>
+            <div class="options"><button id="option2" ></button></div>
+            <div class="options"><button id="option3" ></button></div>
+            <div class="options"><button id="option4" ></button></div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    
+    <section class="anwserSection">
+        <div id="answerStatus"></div>
+          <button id="next_question" >Next Question</button>
+      
+    
+        <!-- Show the correct answer -->
+        <button id="answer_button" display = "none">Show the correct answer</button>
+        <div id="popup" class="popup">
+          <div class="popup-content">
+             <h3>Correct Answer:</h3>
+             <p id="answer-text"></p>
+             <button onclick="closePopup()">Close</button>
+          </div>
+        </div>
+    </section>
+  
+     <!-- Pass the parameter to the JavaScript file -->
+    <script>
+      // Call the fetchQuestion function to retrieve and populate a random question initially
+      //fetchQuestion({{question_list}});  
+      // Pass the parameter to the JavaScript file
+      window.addEventListener('load', function() {
+          var questionList = {{ question_list|tojson }};
+           fetchQuestion(questionList);
+      });
+    </script>
+
+</body>
+</html>

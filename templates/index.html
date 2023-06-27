@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/2b976fb9d0.js" crossorigin="anonymous"></script>
+    <title>TCC - Think Cloud Computing</title>
+</head>
+<style>
+footer{
+    position: relative;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: end;
+    background-size: 90%;
+    background-image: url({{url_for('static', filename='img/down.svg')}});
+  }
+  .blocb {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    position: absolute;
+    overflow: hidden;
+    background-image: url({{url_for('static', filename='img/blob-scene-haikei.svg')}});
+  }
+</style>
+<body>
+    <header>
+      <section class="header-section">
+        <figure>
+            <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename='img/image-removebg-preview.png')}}" alt="TCC Logo"></a>
+            <figcaption>TCC</figcaption>
+            <p>Think Cloud Computing</p>
+        </figure>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+                <li><a href="#ourgames">Our Games</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                {% if session['user'] %}
+                    <section class="dropdown">
+                        <button class="dropbutton"><span class="fa fa-solid fa-user"></span>  {{session['user']['nickname']}} <span class="fa fa-solid fa-caret-down"></span></button>
+                        <section class="dropcontent">
+                            <li><a href="{{ url_for('myProfile') }}">My Profile</a></li>
+                            {% if session['user']['role'] == 'admin' %}
+                                <li><a href="{{ url_for('manager') }}">Manager Dashboard</a></li>
+                            {% endif %}
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </section>
+                    </section>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login/Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        </section>
+       <section class="bluerow"></section>
+    </header>
+    <main>
+        <section class="logomain">
+            <img src="{{url_for('static', filename='img/image-removebg-preview(1).png')}}" alt="" height="600px" width="800px">
+            <article>
+                <h4>
+                    Get into Cloud Computing with Our games.
+                    Train Your Brain with Challenges Trivia Tests & Fun games. 
+                </h4>
+                <p>play daily to Improve your general knowledge.
+                    Sharpen your mind and your cognitive skills. 
+                    It’s fun, easy and free !.</p>
+                <a href="{{url_for('play_game', game='trivia')}}">
+                    <button class="button">
+                        Play your trivia game
+                    </button>
+                </a>
+                </article>
+                <div class="waves">
+                <img src="{{url_for('static', filename='img/layered-waves-haikei.svg')}}" alt="">
+                </div>
+        </section>
+              <section class="ourgames" id="ourgames">
+                <h2 class="title">Our Games</h2>
+                <nav>
+                    <article>
+                        <figure class="card">
+                            <img src="{{url_for('static', filename='/img/Untitled.jpg')}}" class="card-img" alt="">
+                            <figcaption>
+                                <h3>Trivia game</h3>
+                                <p>Check out your knowlage in cloud computing<br>solve multiply questions about cloud computing rank your self up and climb the leaderboard</p>
+                                <a href="{{url_for('play_game', game='trivia')}}">
+                                    <button class="button-game">
+                                        Play now !
+                                    </button>
+                                </a>
+                            </figcaption>
+                        </figure>
+                </article>
+                <article>
+                    <figure class="card">
+                        <div class="memeory-game">
+                            <section class="boxtrivia">
+                                <section class="secondbox"></section>
+                            </section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                            <section class="boxtrivia"> 
+                                <section class="secondbox matching">
+                                    <img src="{{url_for('static', filename='img/star-7203.svg')}}" alt="" width="50px" height="100px">
+                                </section>
+                            </section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                            <section class="boxtrivia"> <section class="secondbox matching">
+                                <img src="{{url_for('static', filename='img/star-7203.svg')}}" alt="" width="50px" height="100px">
+                            </section></section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                            <section class="boxtrivia"> <section class="secondbox"></section></section>
+                        </div>
+                        <figcaption>
+                            <h3>Memmory game</h3>
+                            <p>Check out your knowlage in cloud computing<br>solve multiply questions about cloud computing rank your self up and climb the leaderboard</p>
+                            <button class="button-game">Soon</button>
+                        </figcaption>
+                    </figure>
+                </article>
+                <article>
+                    <figure class="card">
+                        <div class="cloud" style="background-image: url({{url_for('static', filename='img/compute.png')}});"></div>
+                        <figcaption>
+                            <h3>Compute the Cloud</h3>
+                            <p>Check out your knowlage in cloud computing<br>solve multiply questions about cloud computing rank your self up and climb the leaderboard</p>
+                            <button class="button-game">Soon</button>
+                        </figcaption>
+                    </figure>
+                </article>
+                <article>
+                    <figure class="card">
+                        <img src="{{url_for('static', filename='/img/Untitled.jpg')}}" class="card-img" alt="">
+                        <figcaption>
+                            <h3>Trivia <em>Multiplayer</em></h3>
+                            <p>Check out your knowlage in cloud computing<br>solve multiply questions about cloud computing rank your self up and climb the leaderboard</p>
+                            <button class="button-game">Soon</button>
+                        </figcaption>
+                    </figure>
+                </article>
+            </nav>
+            <div class="wave">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"
+                ></path>
+                </svg>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="blocb"></div>
+        <h2>© 2023 TCC - Think Cloud Computing. All rights reserved.</h2>
+        <p>
+            About Us | Privacy Policy | Terms & Conditions | Sitemap | Contact Us<br><br>
+
+            Address: רחוב מזא פינת מאפו<br>
+            Email: support@TCC.com<br><br>
+
+            Follow Us:<br>
+            Facebook | Twitter  | LinkedIn  | Instagram <br><br>
+
+            TCC is your go-to resource for cloud computing insights and solutions. We are committed to promoting the understanding, adoption, and optimization of cloud computing technologies, to help businesses achieve scalability, flexibility, and cost-efficiency.
+        </p>
+        <div class="blobdown"></div>
+    </footer>
+</body>
+</html>
